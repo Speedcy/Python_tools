@@ -15,7 +15,7 @@ for i in range(len(txt)):
     splitline=line.split(': ')
     if len(splitline)==2:
         splitline[0]="'"+splitline[0]+"'"
-        splitline[1]="'"+splitline[1].replace("\n","'\n")
+        splitline[1]="'"+splitline[1].replace("\n","',\n")
         if i==len(txt)-1:
             splitline[1]+="'"
         newline=splitline[0]+": "+splitline[1]
