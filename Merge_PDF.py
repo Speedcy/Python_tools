@@ -54,3 +54,32 @@ pdfWriter.write(pdfOutputFile)
 pdfOutputFile.close()
 pdf1File.close()
 pdf2File.close()
+
+def merge_pdf(file_name_list,outputname):
+
+    pdfFile_list=[]
+    pdfReader_list=[]
+    for file in file_name_list:
+        pdfFile = open(file, 'rb')
+        pdfFile_list.append(pdfFile)
+        pdfReader = PyPDF2.PdfFileReader(pdfFile,strict=False)
+        pdfReader_list.append(pdfReader)
+
+    pdfWriter = PyPDF2.PdfFileWriter()
+
+    # Loop through all the pagenumbers for the first document
+    for pdfReader in pdfReader_list:
+        for pageNum in range(pdfReader.numPages):
+            pageObj = pdfReader.getPage(pageNum)
+            pdfWriter.addPage(pageObj)
+        
+     # Now that you have copied all the pages in both the documents, write them into the a new document
+    pdfOutputFile = open(outputname, 'wb')
+    pdfWriter.write(pdfOutputFile)
+    
+    # Close all the files - Created as well as opened
+    pdfOutputFile.close()
+    for pdfFile in pdfFile_list:
+        pdfFile.close()
+    
+    return(None)
