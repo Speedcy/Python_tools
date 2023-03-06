@@ -45,6 +45,22 @@ elif merge_method=='custom':
     pdfWriter.addPage(pdf2Reader.getPage(0))
     pdfWriter.addPage(pdf1Reader.getPage(5))
     pdfWriter.addPage(pdf1Reader.getPage(6))
+
+elif merge_method=='several':
+
+    filename='2022ltr.pdf'
+    pdfFile = open(filename, 'rb')
+    pdfReader = PyPDF2.PdfFileReader(pdfFile)
+    pageObj = pdfReader.getPage(0)
+    pdfWriter.addPage(pageObj)
+
+    for year in range(2016,2022):
+        filename=str(year)+'ltr.pdf'
+        pdfFile = open(filename, 'rb')
+        pdfReader = PyPDF2.PdfFileReader(pdfFile, strict=False)
+        for pageNum in range(1,pdfReader.numPages):
+            pageObj = pdfReader.getPage(pageNum)
+            pdfWriter.addPage(pageObj)
  
 # Now that you have copied all the pages in both the documents, write them into the a new document
 pdfOutputFile = open('Output File/'+outputname, 'wb')
